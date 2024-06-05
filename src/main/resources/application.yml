@@ -1,0 +1,30 @@
+# postgresql 설정
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/notice?rewriteBatchedInserts=true
+    username: postgres
+    password: "1"
+
+  jpa:
+    show-sql: true    # 쿼리문 안보고 싶으면 false
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  servlet:
+    multipart:
+      enabled: true
+      location: C:/work
+      max-file-size: 200MB
+      max-request-size: 215MB
+  devtools:
+    livereload:
+      enabled: true
+
+
+file.upload.path: c:/work/notice/files

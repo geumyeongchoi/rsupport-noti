@@ -1,7 +1,29 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+}
+
+configurations {
+	all {
+		exclude group: 'ch.qos.logback', module: 'logback-classic'
+		exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+		exclude group: 'ch.qos.logback', module: 'logback-classic'
+	}
+
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+
+	querydsl.extendsFrom compileClasspath
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -20,8 +42,55 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	//POSTGRE
+	implementation 'org.postgresql:postgresql:42.2.9'
+	//JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//LOGGER
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
+
+	//querydsl
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	implementation 'com.vladmihalcea:hibernate-types-52:2.9.7'
+
+	// swagger
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
+	implementation "io.springfox:springfox-swagger-ui:3.0.0"
+
+	implementation 'commons-io:commons-io:2.11.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'org.mockito:mockito-junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	//LOMBOK
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
 }
 
 tasks.named('test') {
