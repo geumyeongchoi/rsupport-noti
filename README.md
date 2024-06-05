@@ -1,9 +1,11 @@
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"><img src="https://img.shields.io/badge/PostgreSQL-007396?style=for-the-badge&logo=PostgreSQL&logoColor=white">
 
 
+
 # Notice API
 
 공지사항 API
+
 
 ## 목차
 
@@ -14,16 +16,21 @@
     - [설치](#설치)
     - [사용법](#사용법)
 
+
 ## 소개
 
 공지사항 등록 및 조회 등, 공지사항 관련한 작업을 위한 API 입니다.
 
+
 ## 개발자소개
+
 - **이름** : 최금영
 - **직무** : 백엔드
 - **주요언어** : JAVA
 
+
 ## 개발환경
+
 - **Version** : JAVA 8
 - **Framwork** : Spring Boot 2.7.5
 - **IDE** : IntelliJ
@@ -31,15 +38,24 @@
 - **ORM** : JPA(Hibernate)
 - **SPEC API** : Swagger 3
 
+
 ## 설치
-**Requirment**
-Java 8 이상
+
+**Requirment** </br>
+Java 8 이상 </br>
+Postgresql 12 이상
+
 
 ```
 $ git clone https://github.com/geumyeongchoi/rsupport-noti.git
 ```
 
+
 ## 시작하기
+
+1) Postgresql 설치
+2) notice\ref\db 에 있는 init.sql로 필요한 스키마 생성
+3) 아래 명령어 수행
 
 ```
 $ cd rsupport-noti
@@ -47,6 +63,8 @@ $ gradlew build
 $ cd build/libs
 $ java -jar notice-0.0.1-SNAPSHOT.jar
 ```
+
+
 
 ## 사용법
 
