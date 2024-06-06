@@ -31,11 +31,6 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 group = 'com.support'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	withSourcesJar()
-}
-
-
 repositories {
 	mavenCentral()
 }
@@ -47,6 +42,7 @@ dependencies {
 
 	//POSTGRE
 	implementation 'org.postgresql:postgresql:42.2.9'
+
 	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -57,6 +53,7 @@ dependencies {
 	//querydsl
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-core:${queryDslVersion}"
 	implementation 'com.vladmihalcea:hibernate-types-52:2.9.7'
 
 	// swagger

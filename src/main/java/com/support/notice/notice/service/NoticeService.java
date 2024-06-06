@@ -11,10 +11,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,7 +38,10 @@ public class NoticeService {
      * @return 공지사항 목록
      */
     public List<NoticeResponse> list() {
+        LocalDateTime current = LocalDateTime.now();
+        //공지사항 목록 조회 시 시작일, 종료일 filter
         return noticeRepository.findAll().stream()
+                .filter(noti -> (current.isAfter(noti.getStartDate()) && current.isBefore(noti.getEndDate())))
                 .map(NoticeResponse::new)
                 .collect(Collectors.toList());
     }
@@ -46,6 +51,7 @@ public class NoticeService {
      * @param notiSeq
      * @return
      */
+    @Transactional
     public NoticeResponse detail(long notiSeq) {
         NoticeEntity notice = noticeRepository.findById(notiSeq).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 공지사항 입니다. notiSeq = " + notiSeq));
         notice.addViewCount();
